@@ -114,4 +114,14 @@ register(
     max_episode_steps=128,
 )
 
+register(
+    "DclawEnv-v1",
+    entry_point="envs.meta.wrappers:mujoco_wrapper",
+    kwargs={
+        "entry_point": "envs.meta.dclaw.dclaw_turn_env:MetaDclawTurnEnv",
+        "max_episode_steps": 200,
+        "n_tasks": None,
+    },
+    max_episode_steps=200,
+)
 
