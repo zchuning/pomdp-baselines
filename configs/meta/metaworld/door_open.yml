@@ -30,6 +30,7 @@ eval:
   log_interval: 4 # num of iters
   save_interval: 100 # -1
   log_tensorboard: true
+  log_wandb: true
 
 policy:
   seq_model: gru # [lstm, gru]

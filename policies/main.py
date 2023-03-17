@@ -9,6 +9,7 @@ from absl import flags
 from utils import system, logger
 from pathlib import Path
 import psutil
+import wandb
 
 from torchkit.pytorch_utils import set_gpu_mode
 from policies.learner import Learner
@@ -141,6 +142,20 @@ log_folder = os.path.join(exp_id, system.now_str())
 logger_formats = ["stdout", "log", "csv"]
 if v["eval"]["log_tensorboard"]:
     logger_formats.append("tensorboard")
+if v["eval"]["log_wandb"]:
+    logger_formats.append("wandb")
+    wandb_config = {
+        "env_id": v["env"]["env_name"],
+        "algo": v["policy"]["algo_name"],
+        "seed": v["seed"],
+    }
+    wandb.init(
+        project=os.environ.get("WANDB_PROJECT", "ramp-icml-rebuttal"),
+        entity=os.environ.get("MY_WANDB_ID", None),
+        group=wandb_config["env_id"],
+        job_type=wandb_config["algo"],
+        config=wandb_config,
+    )
 logger.configure(dir=log_folder, format_strs=logger_formats, precision=4)
 logger.log(f"preload cost {time.time() - t0:.2f}s")
 

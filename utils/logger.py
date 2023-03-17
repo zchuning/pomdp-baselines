@@ -8,6 +8,12 @@ import dateutil.tz
 import tempfile
 from collections import OrderedDict, Set
 
+import numpy as np
+import torch
+import wandb
+import wandb.data_types
+from matplotlib import pyplot as plt
+
 try:
     from torch.utils.tensorboard import SummaryWriter
 except:
@@ -207,6 +213,14 @@ class TensorBoardOutputFormat(KVWriter):
             self.writer = None
 
 
+class WANDBOutputFormat(KVWriter):
+    def writekvs(self, kvs):
+        wandb.log(kvs)
+
+    def close(self):
+        pass
+
+
 def make_output_format(format, ev_dir, log_suffix=""):
     os.makedirs(ev_dir, exist_ok=True)
     if format == "stdout":
@@ -219,6 +233,8 @@ def make_output_format(format, ev_dir, log_suffix=""):
         return CSVOutputFormat(osp.join(ev_dir, "progress.csv"))
     elif format == "tensorboard":
         return TensorBoardOutputFormat(ev_dir)
+    elif format == "wandb":
+        return WANDBOutputFormat()
     else:
         raise ValueError("Unknown format specified: %s" % (format,))
 
