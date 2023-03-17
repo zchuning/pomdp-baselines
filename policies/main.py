@@ -146,7 +146,7 @@ if v["eval"]["log_wandb"]:
     logger_formats.append("wandb")
     wandb_config = {
         "env_id": v["env"]["env_name"],
-        "algo": v["policy"]["algo_name"],
+        "algo": v["env"]["env_type"],
         "seed": v["seed"],
     }
     wandb.init(
