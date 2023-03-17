@@ -64,3 +64,16 @@ register(
     },
     max_episode_steps=200,
 )
+
+
+register(
+    "ReachWallEnv-v2",
+    entry_point="envs.meta.wrappers:mujoco_wrapper",
+    kwargs={
+        "entry_point": "envs.meta.metaworld.metaworld_env:MetaWorldEnv",
+        "env_name": "reach-wall-v2",
+        "max_episode_steps": 128,
+        "n_tasks": None,
+    },
+    max_episode_steps=128,
+)

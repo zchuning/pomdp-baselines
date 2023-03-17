@@ -1,4 +1,3 @@
-# -*- coding: future_fstrings -*-
 import os, sys
 import time
 
@@ -79,11 +78,13 @@ class Learner:
                 # NOTE: This is off-policy varibad's setting, i.e. limited training tasks
                 # split to train/eval tasks
                 assert num_train_tasks >= num_eval_tasks > 0
-                shuffled_tasks = np.random.permutation(
-                    self.train_env.unwrapped.get_all_task_idx()
-                )
-                self.train_tasks = shuffled_tasks[:num_train_tasks]
-                self.eval_tasks = shuffled_tasks[-num_eval_tasks:]
+                # shuffled_tasks = np.random.permutation(
+                #     self.train_env.unwrapped.get_all_task_idx()
+                # )
+                # self.train_tasks = shuffled_tasks[:num_train_tasks]
+                # self.eval_tasks = shuffled_tasks[-num_eval_tasks:]
+                self.train_tasks = np.random.permutation(self.train_env.unwrapped.get_train_task_idx())
+                self.eval_tasks = np.random.permutation(self.train_env.unwrapped.get_test_task_idx())
             else:
                 # NOTE: This is on-policy varibad's setting, i.e. unlimited training tasks
                 assert num_tasks == num_train_tasks == None
