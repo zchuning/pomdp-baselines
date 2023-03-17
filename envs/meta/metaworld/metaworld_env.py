@@ -6,13 +6,13 @@ ml45_train = metaworld.ML45(seed=0)
 ml45_test = metaworld.ML45(seed=9999)
 
 class MetaWorldEnv(Env):
-    def __init__(self, env_name, max_episode_steps=128, n_tasks=60):
+    def __init__(self, env_name, max_episode_steps=128, n_tasks=51):
         self._max_episode_steps = max_episode_steps
         self.n_tasks = n_tasks
 
         self.env = ml45_train.train_classes[env_name]()
         self.train_tasks = [task for task in ml45_train.train_tasks if task.env_name == env_name][:50]
-        self.test_tasks = [task for task in ml45_test.train_tasks if task.env_name == env_name][:10]
+        self.test_tasks = [task for task in ml45_test.train_tasks if task.env_name == env_name][:1]
         self.tasks = self.train_tasks + self.test_tasks
         self.reset_task(0)
     

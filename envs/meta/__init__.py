@@ -77,3 +77,41 @@ register(
     },
     max_episode_steps=128,
 )
+
+register(
+    "ButtonPressEnv-v2",
+    entry_point="envs.meta.wrappers:mujoco_wrapper",
+    kwargs={
+        "entry_point": "envs.meta.metaworld.metaworld_env:MetaWorldEnv",
+        "env_name": "button-press-v2",
+        "max_episode_steps": 128,
+        "n_tasks": None,
+    },
+    max_episode_steps=128,
+)
+
+register(
+    "FaucetOpenEnv-v2",
+    entry_point="envs.meta.wrappers:mujoco_wrapper",
+    kwargs={
+        "entry_point": "envs.meta.metaworld.metaworld_env:MetaWorldEnv",
+        "env_name": "faucet-open-v2",
+        "max_episode_steps": 128,
+        "n_tasks": None,
+    },
+    max_episode_steps=128,
+)
+
+register(
+    "DoorOpenEnv-v2",
+    entry_point="envs.meta.wrappers:mujoco_wrapper",
+    kwargs={
+        "entry_point": "envs.meta.metaworld.metaworld_env:MetaWorldEnv",
+        "env_name": "door-open-v2",
+        "max_episode_steps": 128,
+        "n_tasks": None,
+    },
+    max_episode_steps=128,
+)
+
+
